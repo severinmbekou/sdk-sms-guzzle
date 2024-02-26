@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Call API</title>
+        <meta name="description" content="Customize Modal POPUPs">
+        <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../assets/css/modal.css">
+    </head>
+
+<body>
+    
+ <div>
+  <div class="form-group">
+    <label >Numero de telephone:</label>
+    <input type="text" class="form-control" id="phoneNumber" >
+  </div>
+  <div class="form-group">
+    <label >Amount</label>
+    <input type="number" class="form-control" id="amount">
+  </div>
+
+  <button id="submit" class="btn btn-default">Buy</button>
+</div>
+    
+
+  <div id="opac"></div>
+  <a href="#" class="modal-active"> Test Deposit</a>
+    
+                            <div class="modal" role="document">
+
+                                <h2 class="modal-title " >Deposit Form</h2>
+
+                                <div class="modal-body">
+                                    
+                                    <div class="row text-center" id="loading" >
+                                         <img src="../assets/images/large-circle-preloader.gif"  class="img-responsive"/>
+                                    </div>
+                                    <div class="row" id="formCode">
+                                        <p class="text-center">Put amount</p>
+                                        <div class="col-md-4">
+                                            <div class="input-group">
+                                                <input type="text" id="activationCode" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3 col-md-offset-4">
+                                            <button type="button" id="activated"  class="btn btn-primary">Send</button>
+                                        </div>
+                                    </div>
+                                    <div class="row text-center" id="failed" >
+                                        <p>Failled</p>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+   <script src="../assets/js/jquery.js"></script>
+   <script src="../assets/js/requestPayment.js"></script>
+   <script src="../assets/js/requestDeposit.js"></script>
+</body>
+</html>

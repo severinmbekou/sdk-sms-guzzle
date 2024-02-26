@@ -1,0 +1,23 @@
+<html>
+
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+    <title>Send Single message</title>
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+</head>
+
+<body class="container">
+<div id="panel">
+    <h1>Send Single SMS Demo</h1>
+    <form action="submit.php" method="post">
+        <label for="phoneNumber">PhoneNumber:</label>
+        <input type="text" id="phoneNumber" name="phoneNumber" required><br><br>
+
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" rows="5" cols="30" required></textarea><br><br>
+
+        <input type="submit" value="Send">
+    </form>
+</div>
+</body>
+</html>
