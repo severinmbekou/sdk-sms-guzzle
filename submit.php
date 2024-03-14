@@ -21,16 +21,22 @@
 
     // Balance request 
     $resBalance = $custumApi->requestGetSmsBalance();
-    echo "\n \n \n";
+    echo "Sms Balance \n \n \n". "<br>";
     var_dump($resBalance);
 
     // get sms list.
     $smsList = $custumApi->requestGetSmsList();
-    echo "\n \n \n";
+    echo "<br> SmsList \n \n \n". "<br>";
     var_dump($smsList);
+
+    // Send preview sms request.
+    $previewSms = $custumApi->requestPreviewSms($message);
+    echo "<br> previewSms\n \n \n". "<br>";
+    var_dump($previewSms);
+
 
     // Send sms request to a list of mobile phone.
     $sendSms = $custumApi->requestSimpleSms([$phoneNumber], $message);
-    echo "\n \n \n";
+    echo "<br> SendSms \n \n \n". "<br>";
     var_dump($sendSms);
 ?>

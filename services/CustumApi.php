@@ -93,15 +93,60 @@ class CustumAPI
 
     }
 
+   /*
+    * Demande denvoie de sms unique a plusieurs numeros.
+    * use to send complex type of sms: single one-to-one, single one-to-many, many-to-many, complex many-to many
+    */
+    // Request
+    // {
+    //     "body": "Vous avez une préoccupation ou une suggestions à nous faire, laissez-nous un message. Nous nous efforçons de vous répondre dans un délai de 1 à 2 jours ouvrables."
+    // }
+
+    //  Response
+    //  {
+    //     "code": 200,
+    //     "status": "success",
+    //     "data": {
+    //         "originalText": "Vous avez une préoccupation ou une suggestions à nous faire, laissez-nous un message. Nous nous efforçons de vous répondre dans un délai de 1 à 2 jours ouvrables.",
+    //         "size": 162,
+    //         "preview": {
+    //             "textPreview": "Vous avez une préoccupation ou une suggestions à nous faire, laissez-nous un message. Nous nous efforçons de vous répondre dans un délai de 1 à 2 jours ouvrables.",
+    //             "encoding": "Unicode", //or GSM
+    //             "messageCount": 3,
+    //             "charactersRemaining": 36,
+    //             "charset": 2             //  Number of unicode caracter found
+    //         }
+    //     }
+    // }
+    public function requestPreviewSms($body)
+    {
+       
+        static::$instance->guzzleHttpService->setRequestBody(array("body" => $body));
+
+        $response = static::$instance->guzzleHttpService->requestPreviewSms(static::$instance->accessToken); // request preview de sms.
+        $jsonResponse = json_decode($response);                                                 // Décodage du json renvoyé.
+
+        //echo $jsonResponse;
+        return $response;
+    }
+
     /*
     * Demande denvoie de sms unique a plusieurs numeros.
+    * use to send complex type of sms: single one-to-one, single one-to-many, many-to-many, complex many-to many
     */
-    public function requestSimpleSms($destinataires, $message)
+    public function requestSimpleSms($destinataires, $body)
     {
-        static::$instance->guzzleHttpService->setSimpleSmsData(array("to" => $destinataires, "body" => $message));
+        $messages = [];
+        $message = [
+            "destinations"=> $destinataires, "body" => $body
+        ];
+        array_push($messages,$message);
 
-        $response = static::$instance->guzzleHttpService->requestSendSimpleSms(static::$instance->accessToken); // Demande d'envoie de sms.
-        $jsonResponse = json_decode($response);                            // Décodage du json renvoyé.
+        //optional buldId is use to trac delivery repport
+        static::$instance->guzzleHttpService->setRequestBody(array("bulkId" => time(), "messages" => $messages));
+
+        $response = static::$instance->guzzleHttpService->requestSendSimpleSms(static::$instance->accessToken);      // Demande d'envoie de sms.
+        $jsonResponse = json_decode($response);                                                                      // Décodage du json renvoyé.
 
         //echo $jsonResponse;
         return $response;
@@ -115,7 +160,7 @@ class CustumAPI
        // echo "ACCESS TOKEN IS:" . static::$instance->accessToken;
         $response = static::$instance->guzzleHttpService->requestGetSmsBalance(static::$instance->accessToken); // Demande d'envoie de sms.
         $jsonResponse = json_decode($response);                            // Décodage du json renvoyé.
-        echo $jsonResponse;
+       // echo $jsonResponse;
         return $response;
     }
 
@@ -127,7 +172,7 @@ class CustumAPI
     {
         $response = static::$instance->guzzleHttpService->requestGetSmsList(static::$instance->accessToken);  // Demande d'envoie de sms.
         $jsonResponse = json_decode($response);                                                                  // Décodage du json renvoyé.
-        echo $jsonResponse;
+        //echo $jsonResponse;
         return $response;
     }
 }
